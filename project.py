@@ -7,6 +7,7 @@ import wikipedia
 import JarvisAI
 import re
 import pprint
+import sys
 
 obj = JarvisAI.JarvisAssistant()
 
@@ -21,7 +22,7 @@ def talk(text):
     engine.say(text)
     engine.runAndWait()
 
-
+talk("command please!")
 def take_command():
     try:
         with sr.Microphone() as source:
@@ -35,7 +36,6 @@ def take_command():
     except:
         print("I didn't understant try again!")
     return command
-
 
 def run_sara():
     command = take_command()
@@ -78,8 +78,13 @@ def run_sara():
         joke = pyjokes.get_joke()
         print(joke)
         talk(joke)
+    elif 'thank you' in command or 'abort' in command or 'stop' in command:
+        talk('you are welcome')
+        talk('Bye, have a good day.')
+        sys.exit()    
     else:
         talk('Please say the command again.')
 
 while True:
     run_sara()
+
